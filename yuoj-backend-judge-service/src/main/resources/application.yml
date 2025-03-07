@@ -19,19 +19,25 @@ spring:
   # ?????
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/yuoj
+    url: jdbc:mysql://localhost:3306/my_oj
     username: root
-    password: 123456
+    password: c278396
   # Redis ??
   redis:
     database: 1
     host: localhost
     port: 6379
     timeout: 5000
+    password: 123456
   servlet:
     multipart:
       # ????
       max-file-size: 10MB
+  rabbitmq:
+    host: localhost
+    port: 5672
+    password: guest
+    username: guest
   cloud:
      nacos:
       discovery:
@@ -45,6 +51,7 @@ server:
     session:
       cookie:
         max-age: 2592000
+        path: /api
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: false
@@ -57,3 +64,5 @@ mybatis-plus:
 # ??????
 codesandbox:
   type: remote
+knife4j:
+  enable: true

@@ -1,5 +1,6 @@
 package com.yupi.yuojbackendjudgeservice;
 
+import com.yupi.yuojbackendjudgeservice.rabbitmq.InitRabbitMq;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,6 +20,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class YuojBackendJudgeServiceApplication {
 
     public static void main(String[] args) {
+        //初始化消息队列
+        InitRabbitMq.doInit();
         SpringApplication.run(YuojBackendJudgeServiceApplication.class, args);
     }
 
