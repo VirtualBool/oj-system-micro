@@ -3,7 +3,9 @@ package com.yupi.yuojbackenduserservice.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +18,7 @@ import com.yupi.yuojbackendcommon.common.ResultUtils;
 import com.yupi.yuojbackendcommon.constant.UserConstant;
 import com.yupi.yuojbackendcommon.exception.BusinessException;
 import com.yupi.yuojbackendcommon.exception.ThrowUtils;
+import com.yupi.yuojbackendcommon.utils.JwtUtil;
 import com.yupi.yuojbackendmodel.model.dto.user.*;
 import com.yupi.yuojbackendmodel.model.entity.User;
 import com.yupi.yuojbackendmodel.model.vo.LoginUserVO;
@@ -92,6 +95,13 @@ public class UserController {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         LoginUserVO loginUserVO = userService.userLogin(userAccount, userPassword, request);
+        Map<String,Object> claims = new HashMap<>();
+        claims.put("id",loginUserVO.getId());
+        claims.put("userName",loginUserVO.getUserName());
+        String token = JwtUtil.getToken(claims);
+        loginUserVO.setToken(token);
+
+        log.info("登录token{}", token);
         return ResultUtils.success(loginUserVO);
     }
 
